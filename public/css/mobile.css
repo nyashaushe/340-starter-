@@ -16,6 +16,8 @@
 
   .siteName {
     margin-bottom: 0.5em;
+    display: flex;
+    justify-content: center;
   }
 
   /* Navigation adjustments */
