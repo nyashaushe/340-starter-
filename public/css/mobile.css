@@ -19,17 +19,17 @@
   }
 
   /* Navigation adjustments */
-  .nav-menu {
+  nav ul {
     flex-direction: column;
     gap: 0.5em;
   }
 
-  .nav-menu li {
+  nav li {
     width: 100%;
     text-align: center;
   }
 
-  .nav-menu a {
+  nav a {
     display: block;
     padding: 0.8em;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
