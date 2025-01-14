@@ -1,79 +1,125 @@
-/* Mobile-first CSS */
-
-/* General styles */
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
-
-/* Header styles */
-header {
-    padding: 10px;
-}
-
-#tools {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-nav {
+/* Mobile Breakpoint */
+@media screen and (max-width: 767px) {
+  /* Wrapper adjustments */
+  #wrapper {
     width: 100%;
-}
-
-nav ul {
-    padding: 0;
     margin: 0;
-    list-style: none;
-}
+    border: none;
+    padding: 0.5em;
+  }
 
-nav ul li {
-    margin-bottom: 5px;
-}
-
-/* Main content */
-main {
-    padding: 15px;
-}
-
-/* Form elements */
-form {
-    display: flex;
+  /* Header adjustments */
+  #top-header {
     flex-direction: column;
-    gap: 10px;
-}
+    padding: 0.5em;
+  }
 
-input, textarea, select {
+  .siteName {
+    margin-bottom: 0.5em;
+  }
+
+  /* Navigation adjustments */
+  .nav-menu {
+    flex-direction: column;
+    gap: 0.5em;
+  }
+
+  .nav-menu li {
     width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-}
-
-/* Images */
-img {
-    max-width: 100%;
-    height: auto;
-}
-
-/* Grid items */
-.grid-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 15px;
-}
-
-/* Footer */
-footer {
-    padding: 10px;
     text-align: center;
-}
+  }
 
-/* Utility classes */
-.hidden {
-    display: none;
-}
-
-.visible {
+  .nav-menu a {
     display: block;
+    padding: 0.8em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Hero section adjustments */
+  .hero {
+    min-height: 300px;
+  }
+
+  .hero-content {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin: 1em;
+    max-width: 100%;
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  /* Vehicle grid adjustments */
+  .vehicle-grid {
+    flex-direction: column;
+    gap: 1em;
+    margin: 1em 0;
+  }
+
+  /* Upgrades section */
+  .grid-container {
+    grid-template-columns: 1fr;
+    gap: 1em;
+  }
+
+  .upgrade-item {
+    margin-bottom: 1em;
+  }
+
+  .upgrade-item img {
+    max-width: 200px;
+    margin: 0 auto;
+  }
+
+  /* Reviews section */
+  .reviews {
+    padding: 0.5em;
+  }
+
+  .review-item {
+    margin-bottom: 1.5em;
+    padding: 0.5em;
+  }
+
+  .review-item h3 {
+    font-size: 1.1em;
+  }
+
+  /* Button adjustments */
+  .cta-button {
+    width: 100%;
+    padding: 1em;
+    margin-top: 1em;
+  }
+
+  /* Footer adjustments */
+  footer {
+    padding: 1em 0.5em;
+  }
+}
+
+/* Small phone optimization */
+@media screen and (max-width: 375px) {
+  .siteName a {
+    font-size: 1.5em;
+  }
+
+  .hero-content h2 {
+    font-size: 1.2em;
+  }
+
+  .upgrade-item img {
+    max-width: 150px;
+  }
+}
+
+/* Landscape orientation */
+@media screen and (max-width: 767px) and (orientation: landscape) {
+  .hero {
+    min-height: 200px;
+  }
+
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
