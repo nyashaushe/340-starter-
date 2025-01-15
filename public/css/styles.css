@@ -19,6 +19,7 @@ html body {
   justify-content: space-between;
   align-items: center;
   padding: 1em 0;
+  
 }
 
 .siteName a {
@@ -29,18 +30,19 @@ html body {
 
 /* Navigation */
   nav {
-      background: #3a3a3a;
-      padding: .5em;
+    padding: .5em;
   }
   
   .nav-menu {
       list-style: none;
-      padding: 0;
+      padding: 30px;
       margin: 0;
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 2em;
+      background-color: #212121;
+      
   }
   
   .nav-menu li {
@@ -75,10 +77,13 @@ nav a {
   padding: 0.5em 1em;
   border-radius: 4px;
   transition: background-color 0.3s ease;
+  font-weight: 500;
+  
 }
 
 nav a:hover {
   background-color: #4c96d7;
+ 
 }
 
 nav ul a:hover {
