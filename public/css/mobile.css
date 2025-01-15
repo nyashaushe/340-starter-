@@ -22,7 +22,7 @@
 
   /* Navigation adjustments */
   nav ul {
-    flex-direction: grid;
+    /* flex-direction: grid; */
     gap: 0.5em;
   }
 
