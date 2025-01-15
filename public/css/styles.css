@@ -81,10 +81,7 @@ nav a {
   
 }
 
-nav a:hover {
-  background-color: #4c96d7;
- 
-}
+
 
 nav ul a:hover {
   text-decoration: underline;
