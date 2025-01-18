@@ -1,27 +1,44 @@
---1st SQL statement
+--1st SQL statement (code works)
 INSERT INTO account (account_firstname, account_lastname, account_email, account_password)
 VALUES ('Tony', 'Stark', 'tony@starkent.com', 'Iam1ronM@n');
 
---2nd SQL statement
-UPDATE account
-SET account_type = 'Admin'
-WHERE email = 'tony@starkent.com';
+--2nd SQL statement Account type UPDATE
 
---3rd SQL statement 
+--(code is not working- i keep receiving an error message and yet Admin is a valid account type)
+--ERROR:  invalid input value for enum account_type: "Admin"
+--LINE 2: SET account_type = 'Admin'
+--                      ^ 
+--SQL state: 22P02
+--Character: 42
+
+UPDATE public.account
+SET account_type = 'Admin'
+WHERE account_email = 'tony@starkent.com';
+
+
+--3rd SQL statement (code works)
 DELETE FROM public.account
 WHERE account_email = 'tony@starkent.com';
 
---4th SQL statement
+--4th SQL statement (code works)
 UPDATE public.inventory
 SET inv_description = REPLACE(inv_description, 'small interiors', 'a huge interior')
 WHERE inv_make = 'GM' AND inv_model = 'Hummer';
 
 --5th SQL statement
-SELECT inv_make, inv_model, classification.classification_name
-FROM inventory
-INNER JOIN classification 
-ON inv_id = classification.classification_id
-WHERE classification.classification_name = 'Sport';
+SELECT 
+    inv_make,
+    inv_model,
+    classification.classification_name
+FROM 
+    public.inventory
+INNER JOIN 
+    public.classification
+ON 
+    inventory.classification_id = classification.classification_id
+WHERE 
+    classification.classification_name = 'Sport';
+
 
 --6th SQL statement
 UPDATE inventory
