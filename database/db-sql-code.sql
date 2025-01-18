@@ -263,20 +263,6 @@ UPDATE public.inventory
 SET inv_description = REPLACE(inv_description, 'small interiors', 'a huge interior')
 WHERE inv_make = 'GM' AND inv_model = 'Hummer';
 
---5th SQL statement
-SELECT 
-    inv_make,
-    inv_model,
-    classification.classification_name
-FROM 
-    public.inventory
-INNER JOIN 
-    public.classification
-ON 
-    inventory.classification_id = classification.classification_id
-WHERE 
-    classification.classification_name = 'Sport';
-
 
 --6th SQL statement
 UPDATE inventory
