@@ -57,25 +57,39 @@ Util.buildClassificationGrid = async function(data){
     } else {
       grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
     }
-    return grid
+    return 
   }
 
 
 /* **************************************
  * Build the vehicle detail view HTML
  * ************************************ */
-Util.buildVehicleDetail = async (vehicle) => {
-  let html = '<div class="vehicle-detail">';
-  html += `<img src="${vehicle.inv_image}" alt="${vehicle.inv_make} ${vehicle.inv_model}" />`;
-  html += `<h2>${vehicle.inv_make} ${vehicle.inv_model}</h2>`;
-  html += `<p class="price">Price: $${new Intl.NumberFormat("en-US").format(vehicle.inv_price)}</p>`;
-  html += `<p>Year: ${vehicle.inv_year}</p>`;
-  html += `<p>Mileage: ${new Intl.NumberFormat("en-US").format(vehicle.inv_miles)} miles</p>`;
-  html += `<p>Color: ${vehicle.inv_color}</p>`;
-  html += `<p class="description">${vehicle.inv_description}</p>`;
-  html += "</div>";
-  return html;
-};
+Util.buildVehicleDetail = async function (data)  {
+  let html
+  if (data.length >0) {
+    html = '<div class="vehicle-detail">'
+    data.forEach(vehicle =>{
+    html += `<div id="vehicle-image>
+    <img src = "${vehicle.inv_image}" alt = "vehicle-image"></div>
+    <div class="vehicle-page">
+    <h2>${vehicle.inv_make} ${vehicle.inv_model} Details</h2> 
+    <p><strong>Year:<strong> ${vehicle.inv_year}</p>
+    <p><strong>Price:<strong> $${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</p>
+    <p><strong>Mileage:<strong> $${new Intl.NumberFormat('en-US').format(vehicle.inv_miles)} miles</p>
+    <p><strong>Color:<strong> ${vehicle.inv_color}</p>
+    <p><strong>Description:<strong> ${vehicle.inv_description}</p>
+  </div>`
+  })
+  
+  html += "</div>"
+  }
+  else {
+    html = "<p class 'warning'> Sorry, we can't matching vehicle.</p>"
+  }
+  console.log(html)
+  return html
+
+}
 
 
 /* ****************************************
