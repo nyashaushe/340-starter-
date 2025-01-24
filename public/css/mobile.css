@@ -10,7 +10,7 @@
 
   /* Header adjustments */
   #top-header {
-    flex-direction: column;
+    flex-direction: flex-start;
     padding: 0.5em;
   }
 
@@ -22,7 +22,8 @@
 
   /* Navigation adjustments */
   nav ul {
-    /* flex-direction: grid; */
+    flex-direction: flex-start;
+    margin: 0;
     gap: 0.5em;
   }
 
@@ -32,7 +33,8 @@
   }
 
   nav a {
-    display: block;
+    display: flex;
+    text-align: center;
     padding: 0.8em;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
@@ -97,6 +99,8 @@
   /* Footer adjustments */
   footer {
     padding: 1em 0.5em;
+    display: flex;
+    text-align: center;
   }
 }
 
