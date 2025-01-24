@@ -16,10 +16,11 @@ html body {
 /* Header */
 #top-header {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 1em 0;
-  
+  text-align: center;
+  gap: 1em;
 }
 
 .siteName a {
@@ -56,20 +57,15 @@ html body {
       padding: 0.5em 1em;
       border-radius: 4px;
       transition: background-color 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
   }
   
   .nav-menu a:hover {
       background-color: #4c96d7;
   }
-
-.nav-menu a {
-  padding: 0;
-  margin: 0; 
-  display: flex;
-  gap: 50px;
-  justify-content: center;
-  align-items: center;
-}
 
 nav a {
   color: white;
@@ -235,7 +231,7 @@ nav ul a:hover {
 /* Responsive Design */
 @media screen and (max-width: 768px) {
   #top-header {
-     flex-direction: flex; 
+    flex-direction: row; 
     text-align: center;
     gap: 1em;
   }
@@ -281,6 +277,12 @@ footer {
 footer p {
     font-size: 0.9em;
     text-align: center;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+    margin: 20px;
 }
 
 /* Footer Responsive */
@@ -334,9 +336,9 @@ body {
 /* Header Styles */
 #top-header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 0;
+    flex-direction: row;
+    text-align: center;
+    gap: 1em;
 }
 
 .siteName a {
