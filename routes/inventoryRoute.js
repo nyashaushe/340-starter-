@@ -7,9 +7,12 @@ const utility = require("../utilities/")
 // Route to build inventory by classification view
 router.get("/type/:classificationId", utility.handleErrors(invController.buildByClassificationId));
 
-// Route to build vehicle inventory view
+// Route to build vehicle detail  view
 router.get("/detail/:vehicleId", utility.handleErrors(invController.buildByVehicleId));
 
 
+// trigger route
+router.get("/triggerError", utility.handleErrors(invController.triggerError));
+  
 
 module.exports = router;
