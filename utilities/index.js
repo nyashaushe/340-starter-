@@ -70,10 +70,11 @@ Util.buildVehicleDetail = async function (data) {
     drill = '<div id="vehicle-display">';
     data.forEach((vehicle => {
       drill += `
-      <div id="item_image">
-      <img src="${vehicle.inv_image}" alt="vehicle image"></div>
-      <div class="vehicle-details">
-        <h2>${vehicle.inv_make} ${vehicle.inv_model} Details</h2>
+      <div id="vehicle-image">
+         <img src="${vehicle.inv_image}" alt="vehicle image">
+      </div>
+      <div class="vehicle-display">
+        <h2>${vehicle.inv_make} ${vehicle.inv_model}</h2>
         <p><strong>Year:</strong> ${vehicle.inv_year}</p>
         <p><strong>Price:</strong> $${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</p>
         <p><strong>Mileage:</strong> ${new Intl.NumberFormat('en-US').format(vehicle.inv_miles)} miles</p>
