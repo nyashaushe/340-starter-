@@ -4,7 +4,7 @@ const Util = {};
 /* ************************
  * Constructs the nav HTML unordered list
  ************************** */
-Util.getNav = async function (req, res, next) {
+Util.getNav = async function (req, res, next ) {
     let data = await invModel.getClassifications();
     let list = '<ul>';
     list += '<li><a href="/" title="Home page">Home</a></li>';
@@ -57,41 +57,37 @@ Util.buildClassificationGrid = async function(data){
     } else {
       grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
     }
-    return 
+    return grid
   }
 
 
 /* **************************************
  * Build the vehicle detail view HTML
  * ************************************ */
-Util.buildVehicleDetail = async function (data)  {
-  let html
-  if (data.length >0) {
-    html = '<div class="vehicle-detail">'
-    data.forEach(vehicle =>{
-    html += `<div id="vehicle-image>
-    <img src = "${vehicle.inv_image}" alt = "vehicle-image"></div>
-    <div class="vehicle-page">
-    <h2>${vehicle.inv_make} ${vehicle.inv_model} Details</h2> 
-    <p><strong>Year:<strong> ${vehicle.inv_year}</p>
-    <p><strong>Price:<strong> $${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</p>
-    <p><strong>Mileage:<strong> $${new Intl.NumberFormat('en-US').format(vehicle.inv_miles)} miles</p>
-    <p><strong>Color:<strong> ${vehicle.inv_color}</p>
-    <p><strong>Description:<strong> ${vehicle.inv_description}</p>
-  </div>`
-  })
-  
-  html += "</div>"
-  }
-  else {
-    html = "<p class 'warning'> Sorry, we can't matching vehicle.</p>"
-  }
-  console.log(html)
-  return html
+Util.buildVehicleDetail = async function (data) {
+  let drill 
+  if (data.length > 0) {
+    drill = '<div id="vehicle-display">';
+    data.forEach((vehicle => {
+      drill += `<div id="item_image">
+      <img src="${vehicle.inv_image}" alt="vehicle image"></div>
+      <div class="vehicle-details">
+        <h2>${vehicle.inv_make} ${vehicle.inv_model} Details</h2>
+        <p><strong>Year:</strong> ${vehicle.inv_year}</p>
+        <p><strong>Price:</strong> $${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</p>
+        <p><strong>Mileage:</strong> ${new Intl.NumberFormat('en-US').format(vehicle.inv_miles)} miles</p>
+        <p><strong>Color:</strong> ${vehicle.inv_color}</p>
+        <p><strong>Description:</strong> ${vehicle.inv_description}</p>
+      </div>`
+    }))
 
-}
-
-
+    drill += "</div>"
+  } else {
+    drill = '<p class="notice">Sorry, no matching vehicle could be found.</p>';
+   }
+  //console.log(drill);
+  return drill
+};
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for
