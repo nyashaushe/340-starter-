@@ -7,14 +7,17 @@
 /* ***********************
  * Require Statements
  *************************/
+const session = require("express-session") // Session management
+const pool = require('./database/') // Database connection
 const utilities = require("./utilities/")
 const baseController = require("./controllers/baseController")
+const accountController = require("./controllers/accountController")
 const express = require("express")
 const expressLayouts = require("express-ejs-layouts")
 const env = require("dotenv").config()
 const path = require('path')
 const app = express()
-// const static = require("./routes/static")
+
 
 /* ***********************
  * Routes
@@ -22,6 +25,35 @@ const app = express()
 app.set("view engine", "ejs")
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout") // not at views root
+
+/* ***********************
+ * Middleware
+ * ************************/
+app.use(session({
+  store: new (require('connect-pg-simple')(session))({
+    createTableIfMissing: true,
+    pool,
+  }),
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true,
+  name: 'sessionId',
+}))
+
+// Express Messages Middleware
+app.use(require('connect-flash')())
+app.use(function(req, res, next){
+  res.locals.messages = require('express-messages')(req, res)
+  next()
+})
+
+
+// Express Messages Middleware
+app.use(require('connect-flash')())
+app.use(function(req, res, next){
+  res.locals.messages = require('express-messages')(req, res)
+  next()
+})
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -34,6 +66,9 @@ app.use(require("./routes/static"))
 app.get("/", utilities.handleErrors(baseController.buildHome))
 // Inventory routes
 app.use("/inv", require("./routes/inventoryRoute"))  
+
+// Account routes
+app.use("/account", require("./routes/accountRoute"))
 
 //Vehicle Detail Route
 app.get("/vehicle/:id", utilities.handleErrors(baseController.buildVehicleDetail)) 

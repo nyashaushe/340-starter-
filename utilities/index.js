@@ -90,6 +90,35 @@ Util.buildVehicleDetail = async function (data) {
   console.log(drill);
   return drill
 };
+
+/* **************************************
+  * Build account view HTML
+  * ************************************ */
+
+Util.buildlogin = async function (data) {
+  let accountDisplay;
+  if (data.length > 0) {
+    accountDisplay = '<div id="account-display">';
+    data.forEach((account) => {
+      accountDisplay += `
+      <div class="account-display">
+        <h2>${account.account_name}</h2>
+        <p><strong>Email:</strong> ${account.account_email}</p>
+        <p><strong>Address:</strong> ${account.account_address}</p>
+        <p><strong>City:</strong> ${account.account_city}</p>
+        <p><strong>State:</strong> ${account.account_state}</p>
+        <p><strong>Zip:</strong> ${account.account_zip}</p>
+      </div>`;
+    });
+    accountDisplay += '</div>';
+  } else {
+    accountDisplay = '<p class="notice">Sorry, no matching account could be found.</p>';
+  }
+  return accountDisplay;
+}
+
+
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for
