@@ -206,3 +206,57 @@ textarea:focus {
   border-radius: 4px;
   text-align: center;
 }
+
+/* Navigation base styles */
+nav {
+  background-color: #333;
+  padding: 0.5em;
+  width: 100%;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+nav li {
+  flex: 0 0 auto;
+  text-align: center;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  padding: 0.8em 1em;
+  display: block;
+  font-size: 0.9em;
+  transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+  background-color: #444;
+}
+
+/* Header layout */
+#top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+  background-color: #fff;
+}
+
+.siteName {
+  margin: 0;
+}
+
+#tools {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}

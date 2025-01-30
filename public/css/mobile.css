@@ -10,39 +10,36 @@
 
   /* Header adjustments */
   #top-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    padding: 0.5em;
+    padding: 1em;
   }
 
   .siteName {
-    margin-bottom: 0.5em;
-    display: flex;
-    justify-content: center;
+    margin-bottom: 1em;
+    text-align: center;
   }
 
   /* Navigation adjustments */
+  nav {
+    padding: 0;
+  }
+
   nav ul {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
     margin: 0;
-    gap: 0.5em;
+    gap: 0;
   }
 
   nav li {
-    width: 100%;
-    text-align: center;
+    flex: 0 0 auto;
   }
 
   nav a {
-    display: flex;
+    /* padding: 0.8em 0.8em; */
+    flex-direction: row;
+    font-size: 0.8em;
     text-align: center;
-    padding: 0.8em;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   /* Hero section adjustments */
@@ -108,12 +105,32 @@
     display: flex;
     text-align: center;
   }
+
+  /* Tools container adjustments */
+  #tools {
+    margin-top: 1em;
+    text-align: center;
+  }
+  
+ 
+  /* For very small screens */
+  @media screen and (max-width: 480px) {
+    nav a {
+      padding:0.2em;
+      font-size: 0.75em;
+    }
+  }
 }
 
-/* Small phone optimization */
-@media screen and (max-width: 375px) {
+/* Smaller mobile devices */
+@media screen and (max-width: 480px) {
+  nav a {
+    padding: 0.2em;
+    font-size: 0.9em;
+  }
+
   .siteName a {
-    font-size: 1.5em;
+    font-size: 1.2em;
   }
 
   .hero-content h2 {
