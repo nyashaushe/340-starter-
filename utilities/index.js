@@ -95,27 +95,27 @@ Util.buildVehicleDetail = async function (data) {
   * Build account view HTML
   * ************************************ */
 
-Util.buildlogin = async function (data) {
-  let accountDisplay;
-  if (data.length > 0) {
-    accountDisplay = '<div id="account-display">';
-    data.forEach((account) => {
-      accountDisplay += `
-      <div class="account-display">
-        <h2>${account.account_name}</h2>
-        <p><strong>Email:</strong> ${account.account_email}</p>
-        <p><strong>Address:</strong> ${account.account_address}</p>
-        <p><strong>City:</strong> ${account.account_city}</p>
-        <p><strong>State:</strong> ${account.account_state}</p>
-        <p><strong>Zip:</strong> ${account.account_zip}</p>
-      </div>`;
-    });
-    accountDisplay += '</div>';
-  } else {
-    accountDisplay = '<p class="notice">Sorry, no matching account could be found.</p>';
-  }
-  return accountDisplay;
-}
+// Util.buildlogin = async function (data) {
+//   let accountDisplay;
+//   if (data.length > 0) {
+//     accountDisplay = '<div id="account-display">';
+//     data.forEach((account) => {
+//       accountDisplay += `
+//       <div class="account-display">
+//         <h2>${account.account_name}</h2>
+//         <p><strong>Email:</strong> ${account.account_email}</p>
+//         <p><strong>Address:</strong> ${account.account_address}</p>
+//         <p><strong>City:</strong> ${account.account_city}</p>
+//         <p><strong>State:</strong> ${account.account_state}</p>
+//         <p><strong>Zip:</strong> ${account.account_zip}</p>
+//       </div>`;
+//     });
+//     accountDisplay += '</div>';
+//   } else {
+//     accountDisplay = '<p class="notice">Sorry, no matching account could be found.</p>';
+//   }
+//   return accountDisplay;
+// }
 
 
 
@@ -125,5 +125,27 @@ Util.buildlogin = async function (data) {
  * General Error Handling
  **************************************** */
 Util.handleErrors = (fn) => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+
+/* **************************************
+* Build the classification select list
+* ************************************ */
+Util.buildClassificationList = async function (classification_id = null) {
+  let data = await invModel.getClassifications()
+  let classificationList =
+    '<select name="classification_id" id="classificationList" required>'
+  classificationList += "<option value=''>Choose a Classification</option>"
+  data.rows.forEach((row) => {
+    classificationList += '<option value="' + row.classification_id + '"'
+    if (
+      classification_id != null &&
+      row.classification_id == classification_id
+    ) {
+      classificationList += " selected "
+    }
+    classificationList += ">" + row.classification_name + "</option>"
+  })
+  classificationList += "</select>"
+  return classificationList
+}
 
 module.exports = Util

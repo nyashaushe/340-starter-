@@ -12,6 +12,7 @@ const pool = require('./database/') // Database connection
 const utilities = require("./utilities/")
 const baseController = require("./controllers/baseController")
 const accountController = require("./controllers/accountController")
+const bodyParser = require("body-parser")
 const express = require("express")
 const expressLayouts = require("express-ejs-layouts")
 const env = require("dotenv").config()
@@ -55,6 +56,10 @@ app.use(function(req, res, next){
   next()
 })
 
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true })) 
+
+
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -69,10 +74,10 @@ app.use("/inv", require("./routes/inventoryRoute"))
 
 // Account routes
 app.use("/account", require("./routes/accountRoute"))
+app.post('/register', utilities.handleErrors(accountController.buildRegister)) 
 
 //Vehicle Detail Route
 app.get("/vehicle/:id", utilities.handleErrors(baseController.buildVehicleDetail)) 
-
 
 
 // File Not Found Route - must be last route in list
@@ -109,4 +114,6 @@ app.use(async (err, req, res, next) => {
     nav
   })
 })
+
+
 
