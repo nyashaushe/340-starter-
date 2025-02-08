@@ -7,6 +7,7 @@
 /* ***********************
  * Require Statements
  *************************/
+const cookieParser = require("cookie-parser")
 const session = require("express-session") // Session management
 const pool = require('./database/') // Database connection
 const utilities = require("./utilities/")
@@ -21,15 +22,17 @@ const app = express()
 
 
 /* ***********************
- * Routes
- *************************/
+ * Middleware
+ * ************************/
+// Static Files - Must come before JWT check
+app.use(express.static(path.join(__dirname, "public")))
+
+// View Engine and Layouts
 app.set("view engine", "ejs")
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout") // not at views root
 
-/* ***********************
- * Middleware
- * ************************/
+// Express Session
 app.use(session({
   store: new (require('connect-pg-simple')(session))({
     createTableIfMissing: true,
@@ -41,27 +44,19 @@ app.use(session({
   name: 'sessionId',
 }))
 
-// Express Messages Middleware
+// Express Messages - Only need this once
 app.use(require('connect-flash')())
 app.use(function(req, res, next){
   res.locals.messages = require('express-messages')(req, res)
   next()
 })
 
-
-// Express Messages Middleware
-app.use(require('connect-flash')())
-app.use(function(req, res, next){
-  res.locals.messages = require('express-messages')(req, res)
-  next()
-})
+// JWT Check
+app.use(cookieParser())
+app.use(utilities.checkJWTToken)
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) 
-
-
-// Serve static files from the 'public' directory
-app.use(express.static(path.join(__dirname, 'public')));
 
 /* ***********************
  * Routes

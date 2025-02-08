@@ -12,5 +12,8 @@
             "name": "render.com",
             "connectString": "postgresql://csemotors_0ofy_user:rhhSvfzvAoxnRH7SK4dnmjEMEMsUmabK@dpg-cu5p422j1k6c73evv6fg-a.oregon-postgres.render.com/csemotors_0ofy"
         }
+    ],
+    "cSpell.words": [
+        "firstname"
     ]
 }

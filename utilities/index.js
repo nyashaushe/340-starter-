@@ -1,5 +1,8 @@
 const invModel = require('../models/inventory-model');
+const jwt = require("jsonwebtoken")
+require("dotenv").config()
 const Util = {};
+const { body } = require("express-validator")
 
 /* ************************
  * Constructs the nav HTML unordered list
@@ -91,33 +94,6 @@ Util.buildVehicleDetail = async function (data) {
   return drill
 };
 
-/* **************************************
-  * Build account view HTML
-  * ************************************ */
-
-// Util.buildlogin = async function (data) {
-//   let accountDisplay;
-//   if (data.length > 0) {
-//     accountDisplay = '<div id="account-display">';
-//     data.forEach((account) => {
-//       accountDisplay += `
-//       <div class="account-display">
-//         <h2>${account.account_name}</h2>
-//         <p><strong>Email:</strong> ${account.account_email}</p>
-//         <p><strong>Address:</strong> ${account.account_address}</p>
-//         <p><strong>City:</strong> ${account.account_city}</p>
-//         <p><strong>State:</strong> ${account.account_state}</p>
-//         <p><strong>Zip:</strong> ${account.account_zip}</p>
-//       </div>`;
-//     });
-//     accountDisplay += '</div>';
-//   } else {
-//     accountDisplay = '<p class="notice">Sorry, no matching account could be found.</p>';
-//   }
-//   return accountDisplay;
-// }
-
-
 
 /* ****************************************
  * Middleware For Handling Errors
@@ -146,6 +122,65 @@ Util.buildClassificationList = async function (classification_id = null) {
   })
   classificationList += "</select>"
   return classificationList
+}
+
+
+/* ****************************************
+* Middleware to check token validity
+**************************************** */
+Util.checkJWTToken = (req, res, next) => {
+  if (req.cookies.jwt) {
+   jwt.verify(
+    req.cookies.jwt,
+    process.env.ACCESS_TOKEN_SECRET,
+    function (err, accountData) {
+     if (err) {
+      req.flash("Please log in")
+      res.clearCookie("jwt")
+      return res.redirect("/account/login")
+     }
+     res.locals.accountData = accountData
+     res.locals.loggedin = 1
+     next()
+    })
+  } else {
+   next()
+  }
+}
+
+/* ****************************************
+ *  Check Login
+ * ************************************ */
+Util.checkLogin = (req, res, next) => {
+  if (res.locals.loggedin) {
+    next()
+  } else {
+    req.flash("notice", "Please log in.")
+    return res.redirect("/account/login")
+  }
+ }
+
+/* ****************************************
+ * Middleware to check token and authorization
+ * *************************************** */
+Util.checkInventoryAuth = async (req, res, next) => {
+  if (!res.locals.loggedin) {
+    req.flash("notice", "Please log in.")
+    return res.redirect("/account/login")
+  }
+  
+  if (!res.locals.accountData) {
+    req.flash("notice", "Access Denied. Invalid account data.")
+    return res.redirect("/")
+  }
+  
+  if (res.locals.accountData.account_type === "Employee" || 
+      res.locals.accountData.account_type === "Admin") {
+    next()
+  } else {
+    req.flash("notice", "Access Denied. Insufficient privileges.")
+    return res.redirect("/")
+  }
 }
 
 module.exports = Util

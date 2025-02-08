@@ -3,7 +3,7 @@ const express = require("express")
 const router = new express.Router() 
 const invController = require("../controllers/invController")
 const utilities = require("../utilities/")
-const validate = require("../middleware/validation")
+const validate = require("../utilities/inventory-validation")
 
 // Route to build inventory by classification view
 router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId));
@@ -34,10 +34,33 @@ router.post(
 )
 
 // Route to inventory management view
-router.get("/", utilities.handleErrors(invController.buildManagementView))
+router.get("/", 
+  utilities.checkJWTToken,
+  utilities.checkInventoryAuth,
+  utilities.handleErrors(invController.buildManagement)
+)
+
+// Route to build edit inventory view
+router.get("/edit/:inv_id", 
+  utilities.checkJWTToken,
+  utilities.checkInventoryAuth,
+  utilities.handleErrors(invController.buildEditInventory)
+)
 
 // trigger route
 router.get("/triggerError", utilities.handleErrors(invController.triggerError));
+
+// Get inventory by classification id for management view
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+
+// Route to handle inventory update
+router.post("/update", 
+  utilities.checkJWTToken,
+  utilities.checkInventoryAuth,
+  validate.inventoryRules(),
+  validate.checkUpdateData,
+  utilities.handleErrors(invController.updateInventory)
+)
 
 // Classification routes
 // router.get("/add-classification", utilities.handleErrors(invController.buildAddClassification))

@@ -46,46 +46,108 @@ footer a:hover {
 
 /* Form Styles */
 .form-container {
-  max-width: 600px;
+  max-width: 800px;
   margin: 2em auto;
-  padding: 1em;
+  padding: 2em;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-}
-
-label {
-  font-weight: bold;
-}
-
-input {
-  padding: 0.5em;
-  border: 1px solid #ccc;
+.form-container fieldset {
+  border: 1px solid #ddd;
   border-radius: 4px;
+  padding: 1.5em;
+  margin-bottom: 1em;
 }
 
-input:valid {
-  border-color: green;
+.form-container legend {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #333;
+  padding: 0 0.5em;
 }
 
-input:invalid {
-  border-color: red;
+.form-container label {
+  display: block;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  color: #333;
+  font-weight: 500;
 }
 
-button {
+.form-container input[type="text"],
+.form-container input[type="number"],
+.form-container textarea,
+.form-container select {
+  width: 100%;
+  padding: 0.8em;
+  margin-bottom: 1em;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1em;
+  transition: border-color 0.3s ease;
+}
+
+.form-container textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.form-container input:focus,
+.form-container textarea:focus,
+.form-container select:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+}
+
+.form-container button[type="submit"] {
+  display: block;
+  width: 100%;
   padding: 1em;
-  background-color: #333;
-  color: #fff;
+  margin-top: 1.5em;
+  background-color: #4a90e2;
+  color: white;
   border: none;
   border-radius: 4px;
+  font-size: 1.1em;
+  font-weight: 500;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #444;
+.form-container button[type="submit"]:hover {
+  background-color: #357abd;
+}
+
+/* Form validation styles */
+.form-container input:valid,
+.form-container textarea:valid,
+.form-container select:valid {
+  border-color: #4CAF50;
+}
+
+.form-container input:invalid,
+.form-container textarea:invalid,
+.form-container select:invalid {
+  border-color: #f44336;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .form-container {
+    margin: 1em;
+    padding: 1em;
+  }
+  
+  .form-container fieldset {
+    padding: 1em;
+  }
+  
+  .form-container button[type="submit"] {
+    padding: 0.8em;
+  }
 }
 
 /* Additional Form Styles */
@@ -184,19 +246,6 @@ textarea:focus {
   text-align: center;
 }
 
-/* Form validation styles */
-.form-group input:valid,
-.form-group select:valid,
-.form-group textarea:valid {
-  border-color: #4CAF50;
-}
-
-.form-group input:invalid,
-.form-group select:invalid,
-.form-group textarea:invalid {
-  border-color: #f44336;
-}
-
 /* Error messages */
 .notice {
   background-color: #f8d7da;
@@ -259,4 +308,226 @@ nav a:hover {
   display: flex;
   align-items: center;
   gap: 1em;
+}
+
+/* Inventory Management Table Styles */
+#inventoryDisplay {
+  width: 100%;
+  margin-top: 1em;
+  border-collapse: collapse;
+}
+
+#inventoryDisplay thead {
+  background-color: #333;
+  color: white;
+}
+
+#inventoryDisplay th,
+#inventoryDisplay td {
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+#inventoryDisplay tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#inventoryDisplay a {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+#inventoryDisplay a:hover {
+  text-decoration: underline;
+}
+
+.password-toggle {
+  cursor: pointer;
+  user-select: none;
+  padding: 5px;
+}
+
+.password-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Account Management Styles */
+.management-container {
+  max-width: 800px;
+  margin: 2em auto;
+  padding: 2em;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.management-container h2 {
+  color: #333;
+  margin-bottom: 1em;
+  font-size: 1.8em;
+}
+
+.management-container h3 {
+  color: #4a90e2;
+  margin: 1.5em 0 0.5em;
+  font-size: 1.4em;
+}
+
+.management-container a {
+  display: inline-block;
+  padding: 0.8em 1.5em;
+  margin: 0.5em 0;
+  background-color: #4a90e2;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.management-container a:hover {
+  background-color: #357abd;
+}
+
+/* Login/Register Form Styles */
+.login-form {
+  max-width: 400px;
+  margin: 2em auto;
+  padding: 2em;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.login-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2em;
+}
+
+.login-form label {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 0.3em;
+}
+
+.login-form input {
+  padding: 0.8em;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1em;
+  transition: border-color 0.3s ease;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+}
+
+.login-form button {
+  padding: 1em;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-form button:hover {
+  background-color: #357abd;
+}
+
+.login-form p {
+  text-align: center;
+  margin-top: 1em;
+}
+
+.login-form a {
+  color: #4a90e2;
+  text-decoration: none;
+}
+
+.login-form a:hover {
+  text-decoration: underline;
+}
+
+/* Password Input Styles */
+.password-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.password-toggle {
+  cursor: pointer;
+  padding: 0.5em 1em;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: #666;
+  transition: all 0.3s ease;
+}
+
+.password-toggle:hover {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.password-requirements {
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 0.5em;
+  font-style: italic;
+}
+
+/* Notice/Error Styles */
+.notice {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 1em;
+  margin: 1em 0;
+  border-radius: 4px;
+  list-style: none;
+}
+
+.notice li {
+  margin: 0.5em 0;
+}
+
+/* Update Account Form Styles */
+.form-container {
+  max-width: 800px;
+  margin: 2em auto;
+  padding: 2em;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-container fieldset {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 1.5em;
+  margin-bottom: 2em;
+}
+
+.form-container legend {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #4a90e2;
+  padding: 0 0.5em;
+}
+
+.form-container form + form {
+  margin-top: 2em;
+  padding-top: 2em;
+  border-top: 1px solid #ddd;
 }

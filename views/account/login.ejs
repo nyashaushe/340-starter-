@@ -12,7 +12,8 @@
     <label for="password">Password:</label>
     <div class="password-input">
       <input type="password" id="password" name="account_password" required 
-        pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?=.*[a-z]).{12,}$">
+        pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?=.*[a-z]).{12,}$"
+        autocomplete="current-password">
       <span id="showPassword" class="password-toggle">Show</span>
     </div>
 
@@ -21,6 +22,9 @@
 
   <p>No account? <a href="/account/register">Sign-up</a></p>
 </div>
+
+<script src="../js/script.js"></script>
+
 
 
 
