@@ -19,6 +19,8 @@ const expressLayouts = require("express-ejs-layouts")
 const env = require("dotenv").config()
 const path = require('path')
 const app = express()
+const reviewRoute = require("./routes/reviewRoute")
+const reviewController = require("./controllers/reviewController")
 
 
 /* ***********************
@@ -59,7 +61,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) 
 
 /* ***********************
- * Routes
+ * Routes for the application 
  *************************/
 app.use(require("./routes/static"))
 // Index route
@@ -74,6 +76,8 @@ app.post('/register', utilities.handleErrors(accountController.buildRegister))
 //Vehicle Detail Route
 app.get("/vehicle/:id", utilities.handleErrors(baseController.buildVehicleDetail)) 
 
+// Review routes
+app.use("/reviews", reviewRoute)
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {

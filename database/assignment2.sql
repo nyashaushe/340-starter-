@@ -45,4 +45,15 @@ UPDATE inventory
 SET inv_image = REPLACE(inv_image, '/images/', '/images/vehicles/'),
     inv_thumbnail = REPLACE(inv_thumbnail, '/images/', '/images/vehicles/');
 
+-- Create reviews table
+CREATE TABLE IF NOT EXISTS public.reviews (
+    review_id SERIAL PRIMARY KEY,
+    inv_id INTEGER NOT NULL REFERENCES public.inventory(inv_id),
+    account_id INTEGER NOT NULL REFERENCES public.account(account_id),
+    review_text TEXT NOT NULL,
+    rating INTEGER NOT NULL CHECK (rating >= 1 AND rating <= 5),
+    review_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(inv_id, account_id)
+);
+
 

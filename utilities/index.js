@@ -64,35 +64,27 @@ Util.buildClassificationGrid = async function(data){
 }
 
 
-/* **************************************
+/* ************************
  * Build the vehicle detail view HTML
- * ************************************ */
-Util.buildVehicleDetail = async function (data) {
-  let drill 
-  if (data.length > 0) {
-    drill = '<div id="vehicle-display">';
-    data.forEach((vehicle => {
-      drill += `
-      <div id="vehicle-image">
-         <img src="${vehicle.inv_image}" alt="vehicle image">
-      </div>
-      <div class="vehicle-display">
+ * ************************** */
+Util.buildVehicleDetail = async function(vehicle){
+  let grid
+  if(vehicle){
+    grid = `<div class="vehicle-detail">
+      <img src="${vehicle.inv_image}" alt="${vehicle.inv_make} ${vehicle.inv_model}">
+      <div class="vehicle-info">
         <h2>${vehicle.inv_make} ${vehicle.inv_model}</h2>
-        <p><strong>Year:</strong> ${vehicle.inv_year}</p>
-        <p><strong>Price:</strong> $${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</p>
-        <p><strong>Mileage:</strong> ${new Intl.NumberFormat('en-US').format(vehicle.inv_miles)} miles</p>
-        <p><strong>Color:</strong> ${vehicle.inv_color}</p>
-        <p><strong>Description:</strong> ${vehicle.inv_description}</p>
-      </div>`
-    }))
-
-    drill += "</div>"
+        <p class="vehicle-price">Price: $${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</p>
+        <p class="vehicle-description">${vehicle.inv_description}</p>
+        <p class="vehicle-color">Color: ${vehicle.inv_color}</p>
+        <p class="vehicle-miles">Miles: ${new Intl.NumberFormat('en-US').format(vehicle.inv_miles)}</p>
+      </div>
+    </div>`
   } else {
-    drill = '<p class="notice">Sorry, no matching vehicle could be found.</p>';
-   }
-  console.log(drill);
-  return drill
-};
+    grid = '<p class="notice">Sorry, no matching vehicle could be found.</p>'
+  }
+  return grid
+}
 
 
 /* ****************************************
@@ -130,27 +122,27 @@ Util.buildClassificationList = async function (classification_id = null) {
 **************************************** */
 Util.checkJWTToken = (req, res, next) => {
   if (req.cookies.jwt) {
-   jwt.verify(
-    req.cookies.jwt,
-    process.env.ACCESS_TOKEN_SECRET,
-    function (err, accountData) {
-     if (err) {
-      req.flash("Please log in")
-      res.clearCookie("jwt")
-      return res.redirect("/account/login")
-     }
-     res.locals.accountData = accountData
-     res.locals.loggedin = 1
-     next()
-    })
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN_SECRET,
+      function (err, accountData) {
+        if (err) {
+          req.flash("notice", "Please log in")
+          res.clearCookie("jwt")
+          return res.redirect("/account/login")
+        }
+        res.locals.accountData = accountData
+        res.locals.loggedin = 1
+        next()
+      })
   } else {
-   next()
+    next()
   }
 }
 
 /* ****************************************
- *  Check Login
- * ************************************ */
+* Middleware to check login
+**************************************** */
 Util.checkLogin = (req, res, next) => {
   if (res.locals.loggedin) {
     next()
@@ -158,7 +150,7 @@ Util.checkLogin = (req, res, next) => {
     req.flash("notice", "Please log in.")
     return res.redirect("/account/login")
   }
- }
+}
 
 /* ****************************************
  * Middleware to check token and authorization
