@@ -112,4 +112,34 @@ reviewModel.deleteReview = async function(review_id) {
   }
 }
 
-module.exports = reviewModel 
+/* ***************************
+ * Get latest reviews for homepage
+ * ************************** */
+async function getLatestReviews() {
+  try {
+    const sql = `
+      SELECT r.*, a.account_firstname, a.account_lastname, 
+             i.inv_make, i.inv_model, i.inv_year
+      FROM public.review r
+      JOIN public.account a ON r.account_id = a.account_id
+      JOIN public.inventory i ON r.inv_id = i.inv_id
+      ORDER BY r.review_date DESC
+      LIMIT 4
+    `
+    const result = await pool.query(sql)
+    return result.rows
+  } catch (error) {
+    console.error("getLatestReviews error: " + error)
+    return []
+  }
+}
+
+module.exports = {
+  getLatestReviews,
+  getReviewsByVehicle: reviewModel.getReviewsByVehicle,
+  addReview: reviewModel.addReview,
+  getReviewsByAccount: reviewModel.getReviewsByAccount,
+  getReviewById: reviewModel.getReviewById,
+  updateReview: reviewModel.updateReview,
+  deleteReview: reviewModel.deleteReview
+} 

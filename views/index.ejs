@@ -1,4 +1,3 @@
-
 <h1 class="sr-only">Welcome to CSE Motors!</h1>
 <%- messages() %>
 <section class="hero" aria-labelledby="hero-heading">
@@ -37,22 +36,21 @@
     </section>
 
     <section class="reviews">
-        <h2>Delorean Reviews</h2>
-        <div class="review-item">
-            <h3>"So fast it's almost like traveling in time!"</h3>
-            <p>-Marty McFly</p>
-        </div>
-        <div class="review-item">
-            <h3>"Coolest ride on the road"</h3>
-            <p>-Doc Brown</p>
-        </div>
-        <div class="review-item">
-            <h3>"A car that defines the future!"</h3>
-            <p>-Jennifer Parker</p>
-        </div>
-        <div class="review-item">
-            <h3>"The best car I've ever owned!"</h3>
-            <p>-George McFly</p>
-        </div>
+        <h2>Latest Vehicle Reviews</h2>
+        <% if (reviews && reviews.length > 0) { %>
+            <% reviews.forEach(review => { %>
+                <div class="review-item">
+                    <h3><%= review.inv_year %> <%= review.inv_make %> <%= review.inv_model %></h3>
+                    <div class="review-rating">
+                        <% for(let i = 0; i < review.rating; i++) { %>⭐<% } %>
+                    </div>
+                    <p class="review-text"><%= review.review_text %></p>
+                    <p class="review-author">- <%= review.account_firstname %> <%= review.account_lastname %></p>
+                    <p class="review-date"><%= new Date(review.review_date).toLocaleDateString() %></p>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p>No reviews available yet. Be the first to review a vehicle!</p>
+        <% } %>
     </section>
 </div>
