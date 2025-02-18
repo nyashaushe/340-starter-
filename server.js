@@ -41,9 +41,14 @@ app.use(session({
     pool,
   }),
   secret: process.env.SESSION_SECRET,
-  resave: true,
-  saveUninitialized: true,
+  resave: false,
+  saveUninitialized: false,
   name: 'sessionId',
+  cookie: {
+    secure: process.env.NODE_ENV === 'production',
+    httpOnly: true,
+    maxAge: 1000 * 60 * 60 * 24 // 24 hours
+  }
 }))
 
 // Express Messages - Only need this once
