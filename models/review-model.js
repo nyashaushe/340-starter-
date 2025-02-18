@@ -115,7 +115,7 @@ reviewModel.deleteReview = async function(review_id) {
 /* ***************************
  * Get latest reviews for homepage
  * ************************** */
-async function getLatestReviews() {
+reviewModel.getLatestReviews = async function() {
   try {
     const sql = `
       SELECT r.*, a.account_firstname, a.account_lastname, 
@@ -134,12 +134,4 @@ async function getLatestReviews() {
   }
 }
 
-module.exports = {
-  getLatestReviews,
-  getReviewsByVehicle: reviewModel.getReviewsByVehicle,
-  addReview: reviewModel.addReview,
-  getReviewsByAccount: reviewModel.getReviewsByAccount,
-  getReviewById: reviewModel.getReviewById,
-  updateReview: reviewModel.updateReview,
-  deleteReview: reviewModel.deleteReview
-} 
+module.exports = reviewModel 
