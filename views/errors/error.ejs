@@ -1,5 +1,51 @@
 <div class="error-container">
   <h1><%= title %></h1>
-  <p><%= message %></p>
-  <a href="/">Return to Home</a>
+  <p class="error-message"><%= message %></p>
+  <div class="error-actions">
+    <a href="/" class="button">Return to Home</a>
+    <% if (title === 'Test Error') { %>
+      <p class="error-note">Note: This is a test error page used for development purposes.</p>
+    <% } %>
+  </div>
 </div>
+
+<style>
+.error-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  text-align: center;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.error-message {
+  margin: 1rem 0;
+  color: #666;
+}
+
+.error-actions {
+  margin-top: 2rem;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+.button:hover {
+  background: #0056b3;
+}
+
+.error-note {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #999;
+}
+</style>

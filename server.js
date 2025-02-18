@@ -71,7 +71,6 @@ app.use("/inv", require("./routes/inventoryRoute"))
 
 // Account routes
 app.use("/account", require("./routes/accountRoute"))
-app.post('/register', utilities.handleErrors(accountController.buildRegister)) 
 
 //Vehicle Detail Route
 app.get("/vehicle/:id", utilities.handleErrors(baseController.buildVehicleDetail)) 
@@ -106,9 +105,24 @@ app.listen(port, () => {
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav()
   console.error(`Error at: "${req.originalUrl}": ${err.message}`)
-  if(err.status == 404){ message = err.message} else {message = 'Oh no! There was a crash. Maybe try a different route?'}
-  res.render("errors/error", {
-    title: err.status || 'Server Error',
+  
+  // Different error messages based on error type
+  let message = 'Oh no! There was a crash. Maybe try a different route?'
+  let title = 'Server Error'
+  let status = 500
+
+  if (err.status === 404) {
+    message = err.message
+    title = '404 - Page Not Found'
+    status = 404
+  } else if (err.name === 'Error' && err.message === 'This is an intentional error.') {
+    message = 'This error was triggered intentionally for testing purposes.'
+    title = 'Test Error'
+    status = 500
+  }
+
+  res.status(status).render("errors/error", {
+    title: title,
     message,
     nav
   })
